@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -15,14 +14,16 @@ body {
     min-height: 100vh;
 }
 
+
 /* HEADER */
+
 .header {
     width: 100%;
     background: white;
     padding: 10px 40px;
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -63,7 +64,9 @@ body {
     color: #555;
 }
 
+
 /* FORM CONTAINER */
+
 .container {
     flex: 1;
     display: flex;
@@ -76,7 +79,7 @@ body {
     padding: 50px 40px;
     border-radius: 12px;
     width: 440px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     text-align: center;
 }
 
@@ -108,7 +111,9 @@ h2 {
     margin-bottom: 50px;
 }
 
+
 /* FORM INPUTS */
+
 form {
     display: flex;
     flex-direction: column;
@@ -135,18 +140,24 @@ form {
     transition: 0.25s ease;
 }
 
+
 /* placeholder */
+
 .input_box input::placeholder {
     color: #ABAFB1;
 }
 
+
 /* focus effect */
+
 .input_box input:focus {
     background-color: #fff;
     box-shadow: 0 0 8px rgba(85, 112, 241, 0.4);
 }
 
+
 /* ICONS */
+
 .input_box i {
     position: absolute;
     top: 50%;
@@ -155,14 +166,18 @@ form {
     color: #6E7079;
 }
 
+
 /* icon trái */
+
 .input_box .bx-lock-keyhole,
 .input_box .bx-envelope {
     left: 18px;
     pointer-events: none;
 }
 
+
 /* icon phải (mắt password) */
+
 #eye-pass {
     position: absolute;
     right: 18px;
@@ -181,12 +196,18 @@ form {
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.2; }
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
 }
 
 
 /* BUTTON */
+
 button {
     width: 180px;
     height: 55px;
@@ -206,7 +227,9 @@ button:hover {
     opacity: 0.95;
 }
 
+
 /* LOGIN TEXT */
+
 .login-text {
     margin-top: 35px;
     margin-bottom: 20px;
@@ -238,14 +261,16 @@ body {
     min-height: 100vh;
 }
 
+
 /* HEADER */
+
 .header {
     width: 100%;
     background: white;
     padding: 10px 40px;
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -286,7 +311,9 @@ body {
     color: #555;
 }
 
+
 /* FORM CONTAINER */
+
 .container {
     flex: 1;
     display: flex;
@@ -299,7 +326,7 @@ body {
     padding: 50px 40px;
     border-radius: 12px;
     width: 440px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     text-align: center;
 }
 
@@ -331,7 +358,9 @@ h2 {
     margin-bottom: 50px;
 }
 
+
 /* FORM INPUTS */
+
 form {
     display: flex;
     flex-direction: column;
@@ -358,18 +387,24 @@ form {
     transition: 0.25s ease;
 }
 
+
 /* placeholder */
+
 .input_box input::placeholder {
     color: #ABAFB1;
 }
 
+
 /* focus effect */
+
 .input_box input:focus {
     background-color: #fff;
     box-shadow: 0 0 8px rgba(85, 112, 241, 0.4);
 }
 
+
 /* ICONS */
+
 .input_box i {
     position: absolute;
     top: 50%;
@@ -378,14 +413,18 @@ form {
     color: #6E7079;
 }
 
+
 /* icon trái */
+
 .input_box .bx-lock-keyhole,
 .input_box .bx-phone {
     left: 18px;
     pointer-events: none;
 }
 
+
 /* icon phải (mắt password) */
+
 #eye-pass {
     position: absolute;
     right: 18px;
@@ -404,12 +443,18 @@ form {
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.2; }
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
 }
 
 
 /* BUTTON */
+
 button {
     width: 180px;
     height: 55px;
@@ -429,7 +474,9 @@ button:hover {
     opacity: 0.95;
 }
 
+
 /* RECOVER PASSWORD */
+
 .recover-pass {
     display: block;
     margin-top: 10px;
@@ -439,11 +486,14 @@ button:hover {
     font-weight: 500;
     text-align: right;
 }
+
 .recover-pass:hover {
     text-decoration: underline;
 }
 
+
 /* LOGIN TEXT */
+
 .login-text {
     margin-top: 35px;
     margin-bottom: 20px;
