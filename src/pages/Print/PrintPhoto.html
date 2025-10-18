@@ -38,7 +38,6 @@
             padding: 26px;
             box-shadow: 0 6px 18px rgba(20, 30, 60, 0.06);
         }
-        /* header */
         
         .page-header {
             display: flex;
@@ -71,7 +70,6 @@
             color: var(--muted);
             font-size: 13px
         }
-        /* layout */
         
         .layout {
             display: flex;
@@ -87,7 +85,38 @@
             width: 300px;
             flex-shrink: 0
         }
-        /* sections */
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .input-group .input-field {
+            padding-right: 20px;
+        }
+        
+        .input-field {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-field label {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+        
+        .input-field span {
+            color: #ef4444;
+        }
+        
+        .input-field input {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
         
         .section {
             border: 1px solid var(--border);
@@ -128,7 +157,6 @@
             min-height: 64px;
             resize: vertical
         }
-        /* upload area */
         
         .upload-area {
             border: 2px dashed var(--border);
@@ -172,7 +200,6 @@
             margin-top: 8px;
             text-align: left
         }
-        /* config list */
         
         .config-list-title {
             display: flex;
@@ -253,7 +280,6 @@
             color: var(--muted);
             font-size: 13px
         }
-        /* details area hidden by default */
         
         .details {
             display: none;
@@ -270,7 +296,6 @@
             font-weight: 700;
             color: #0b1220
         }
-        /* paper options */
         
         .paper-type {
             display: flex;
@@ -299,7 +324,6 @@
             color: var(--muted);
             margin-top: 8px
         }
-        /* order summary right */
         
         .order-summary-box {
             border: 1px solid #ddd;
@@ -307,7 +331,6 @@
             padding: 16px;
             background-color: #fff;
             max-width: 300px;
-            /* giữ khung không bị vỡ */
             word-wrap: break-word;
         }
         
@@ -332,9 +355,17 @@
         }
         
         .order-item .o-meta {
-            flex: 1;
-            min-width: 0;
-            /* fix lỗi tràn text */
+            font-weight: 500;
+            font-size: 15px;
+            color: #111827;
+            max-width: 70%;
+            /* Giới hạn chiều rộng tối đa cho tên file */
+            white-space: nowrap;
+            /* Ngăn tên file xuống dòng */
+            overflow: hidden;
+            /* Ẩn phần chữ bị tràn */
+            text-overflow: ellipsis;
+            /* Hiển thị dấu '...' cho phần bị ẩn */
         }
         
         .order-item .o-price {
@@ -364,7 +395,7 @@
             margin: 12px auto 0;
             width: 100%;
             text-align: center;
-            background: #556ee6;
+            background: #374151;
             color: #fff;
             border: none;
             padding: 10px 12px;
@@ -377,7 +408,6 @@
             opacity: 0.6;
             cursor: not-allowed
         }
-        /* responsive */
         
         @media (max-width:960px) {
             .layout {
@@ -391,10 +421,17 @@
                 top: auto
             }
         }
+        
+        .details .row>div {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
     </style>
 </head>
 
 <body>
+
     <div class="container">
         <div class="page-header">
             <button class="btn-back" onclick="window.history.back()">←</button>
@@ -406,70 +443,66 @@
 
         <div class="layout">
             <div class="left">
-                <!-- Customer Info -->
                 <div class="section">
                     <h3>Customer Information</h3>
-                    <div class="row">
-                        <div class="col">
-                            <label>Full Name *</label>
-                            <input type="text" placeholder="Enter full name" id="custName">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label>Full Name <span>*</span></label>
+                            <input type="text" placeholder="Enter full name" required />
                         </div>
-                        <div class="col">
-                            <label>Email *</label>
-                            <input type="email" placeholder="Enter email" id="custEmail">
+                        <div class="input-field">
+                            <label>Email <span>*</span></label>
+                            <input type="email" placeholder="Enter email" required />
                         </div>
                     </div>
                 </div>
 
-                <!-- Upload -->
                 <div class="section">
-                    <h3>Upload photos</h3>
+                    <h3>Upload image</h3>
                     <div class="upload-area" id="uploadArea">
                         <div class="icon">📤</div>
-                        <p style="font-weight:600; margin:6px 0 4px">Select image to print</p>
-                        <p style="margin:0 0 8px;color:var(--muted); font-size:13px">Supports JPG, PNG, TIFF (max 20MB per image, minimum resolution 300 DPI)</p>
+                        <p style="font-weight:600; margin:6px 0 4px">Select a photo to print</p>
+                        <p style="margin:0 0 8px;color:var(--muted); font-size:13px">Supports JPG, PNG, TIFF (up to 20MB per image, minimum resolution 300 DPI)</p>
                         <div class="file-input-row">
                             <label class="file-input">
-              <input id="fileInput" type="file" accept="image/*" multiple style="display:none">
-              <span id="chooseText">Choose Files</span>
-            </label>
+                                <input id="fileInput" type="file" accept="image/*" multiple style="display:none">
+                                <span id="chooseText">Select file</span>
+                            </label>
                             <small style="color:var(--muted); font-size:13px" id="fileNames"></small>
                         </div>
                         <div class="file-names" id="filePreviewSmall"></div>
                     </div>
                 </div>
 
-                <!-- Special request -->
                 <div class="section">
                     <h3>Special request</h3>
                     <label>Additional notes (optional)</label>
-                    <textarea id="notes" placeholder="For example: crop to ratio, adjust colors, deliver to another address..."></textarea>
+                    <textarea id="notes" placeholder="For example: crop to scale, adjust colors, deliver to a different address..."></textarea>
                 </div>
 
-                <!-- Configure print -->
                 <div class="section" id="configSection" style="display:none">
-                    <div class="config-list-title">⚙️ Configure print photos (<span id="countLabel">0 files</span>)</div>
+                    <div class="config-list-title">⚙️ Print configuration (<span id="countLabel">0 files</span>)</div>
                     <div id="configList"></div>
                 </div>
             </div>
 
             <div class="right">
-                <div class="order-summary">
+                <div class="order-summary-box">
                     <h4>Order Summary</h4>
                     <div id="orderList">
-                        <p style="color:var(--muted); text-align:center">No files uploaded yet</p>
+                        <p style="color:var(--muted); text-align:center">No file has been uploaded</p>
                     </div>
 
                     <div class="summary-footer">
                         <div class="summary-row">
-                            <div>Number of file:</div>
-                            <div id="orderCount">0 photos</div>
+                            <div>Number of photos:</div>
+                            <div id="orderCount">0 photo</div>
                         </div>
                         <div class="summary-row">
                             <div style="font-weight:700">Total:</div>
                             <div id="orderTotal">0₫</div>
                         </div>
-                        <button id="payBtn" class="pay-btn" disabled>Proceed with payment</button>
+                        <button id="payBtn" class="pay-btn" disabled>Proceed to payment</button>
                     </div>
                 </div>
             </div>
@@ -477,13 +510,6 @@
     </div>
 
     <script>
-        /* JS logic:
-                                 - handle file input
-                                 - create file items with thumbnail, defaults: copies=1, size='10 x 15 (Standard photo)', paper=Glossy
-                                 - price calculation: base price map by size; paper extra; borderless (+10%); copies multiplies
-                                 - render config list (collapsible details) and order summary (right)
-                                */
-
         const fileInput = document.getElementById('fileInput');
         const chooseText = document.getElementById('chooseText');
         const fileNames = document.getElementById('fileNames');
@@ -491,15 +517,17 @@
         const configSection = document.getElementById('configSection');
         const configList = document.getElementById('configList');
         const countLabel = document.getElementById('countLabel');
-
         const orderList = document.getElementById('orderList');
         const orderCount = document.getElementById('orderCount');
         const orderTotal = document.getElementById('orderTotal');
         const payBtn = document.getElementById('payBtn');
+        const customerNameInput = document.querySelector('.input-group .input-field:nth-child(1) input');
+        const customerEmailInput = document.querySelector('.input-group .input-field:nth-child(2) input');
+        const notesTextarea = document.getElementById('notes');
 
         let items = [];
 
-        // pricing tables (VND)
+        // Bảng giá (VND)
         const basePrice = {
             '10x15': 5500,
             '13x18': 8800,
@@ -512,16 +540,17 @@
         };
         const BORDERLESS_MULT = 0.10; // +10%
 
-        // helper to format
+        // Hàm định dạng tiền tệ
         function fmt(v) {
-            return v.toLocaleString() + 'đ';
+            return v.toLocaleString('vi-VN') + '₫';
         }
 
+        // Hàm rút ngắn tên file
         function shortName(name, n = 30) {
             return name.length > n ? name.slice(0, n - 3) + '...' : name;
         }
 
-        // handle file chooser text click to open file dialog
+        // Xử lý nhấp vào nút chọn file
         document.querySelector('.file-input').addEventListener('click', () => fileInput.click());
 
         fileInput.addEventListener('change', (e) => {
@@ -537,8 +566,8 @@
                     preview: url,
                     pages: 1,
                     copies: 1,
-                    size: '10x15', // key in basePrice
-                    sizeLabel: '10 x 15 (Standard photo)',
+                    size: '10x15',
+                    sizeLabel: '10 x 15 cm',
                     paper: 'Glossy',
                     borderless: false,
                     price: 0
@@ -546,13 +575,13 @@
                 items.push(item);
             });
 
-            // show chosen names
+            // Hiển thị tên file đã chọn
             fileNames.textContent = items.map(i => i.name).join(', ');
             filePreviewSmall.innerHTML = items.map(i => `<div style="display:inline-block;margin-right:10px"><img src="${i.preview}" style="width:40px;height:40px;border-radius:6px;object-fit:cover;border:1px solid #e8ebef"></div>`).join('');
             renderAll();
         });
 
-        // calculate price per item
+        // Tính giá cho mỗi ảnh
         function calcPrice(it) {
             const base = basePrice[it.size] || basePrice['10x15'];
             const pExtra = paperExtra[it.paper] || 0;
@@ -562,11 +591,18 @@
         }
 
         function renderAll() {
-            // show config section
-            configSection.style.display = items.length ? 'block' : 'none';
-            countLabel.textContent = `${items.length} ${items.length>1?'files':'file'}`;
+            // Lưu trạng thái mở/đóng của các chi tiết
+            const expanded = {};
+            document.querySelectorAll('.details').forEach(det => {
+                const id = det.id.replace('details-', '');
+                expanded[id] = det.style.display === 'block';
+            });
 
-            // render config list
+            // Hiển thị phần cấu hình
+            configSection.style.display = items.length ? 'block' : 'none';
+            countLabel.textContent = `${items.length} ${items.length > 1 ? 'ảnh' : 'ảnh'}`;
+
+            // Render danh sách cấu hình
             configList.innerHTML = '';
             items.forEach(it => {
                 it.price = calcPrice(it);
@@ -574,70 +610,68 @@
                 card.className = 'file-card';
                 card.id = 'card-' + it.id;
                 card.innerHTML = `
-      <div class="top">
-        <div class="file-left">
-          <img class="thumb" src="${it.preview}" alt="">
-          <div class="meta">
-            <strong>${shortName(it.name,40)}</strong>
-            <div class="sub">${it.sizeLabel} • ${it.copies} copy${it.copies>1?'s':''} • ${fmt(it.price)}</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <div class="remove-x" data-id="${it.id}" title="Remove">✖</div>
-          <div class="expand-arrow" data-id="${it.id}" title="Toggle details">▾</div>
-        </div>
-      </div>
-      <div class="details" id="details-${it.id}">
-        <div class="row">
-          <div style="flex:0 0 110px">
-            <label>Number of copies</label>
-            <input type="number" min="1" value="${it.copies}" data-field="copies" data-id="${it.id}" style="width:100%;margin-top:6px">
-          </div>
-          <div style="flex:1">
-            <label>Paper size</label>
-            <select data-field="size" data-id="${it.id}" style="margin-top:6px">
-              <option value="10x15" ${it.size==='10x15'?'selected':''}>10 x 15 cm (Standard photo)</option>
-              <option value="13x18" ${it.size==='13x18'?'selected':''}>13 x 18 cm</option>
-              <option value="15x20" ${it.size==='15x20'?'selected':''}>15 x 20 cm</option>
-            </select>
-          </div>
-          <div style="flex:0 0 140px">
-            <label>Paper type</label>
-            <div style="margin-top:6px">
-              <label style="margin-right:6px"><input type="radio" name="paper-${it.id}" value="Glossy" ${it.paper==='Glossy'?'checked':''}> Glossy</label><br>
-              <label style="margin-right:6px"><input type="radio" name="paper-${it.id}" value="Matte" ${it.paper==='Matte'?'checked':''}> Matte (+2.000đ)</label><br>
-              <label style="margin-right:6px"><input type="radio" name="paper-${it.id}" value="Premium" ${it.paper==='Premium'?'checked':''}> Premium (+4.000đ)</label>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:10px; display:flex; align-items:center; gap:12px">
-          <label><input type="checkbox" data-field="borderless" data-id="${it.id}" ${it.borderless?'checked':''}> Borderless (+10%)</label>
-          <div style="flex:1"></div>
-          <div style="font-weight:700">${fmt(it.price)}</div>
-        </div>
-        <div class="footer-note">The photo will be printed full size, with no white borders around it.</div>
-      </div>
-    `;
+                    <div class="top">
+                        <div class="file-left">
+                            <div class="expand-arrow" data-id="${it.id}" title="Show/hide details" style="margin-right:6px">${expanded[it.id] ? '▴' : '▾'}</div>
+                            <img class="thumb" src="${it.preview}" alt="">
+                            <div class="meta">
+                                <strong>${shortName(it.name, 40)}</strong>
+                                <div class="sub">${it.sizeLabel} • ${it.copies} bản${it.copies > 1 ? '' : ''} • ${fmt(it.price)}</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px">
+                            <div class="remove-x" data-id="${it.id}" title="Xóa">✖</div>
+                        </div>
+                    </div>
+                    <div class="details" id="details-${it.id}" style="display:${expanded[it.id] ? 'block' : 'none'}">
+                        <div class="row" style="align-items:flex-end; flex-wrap:wrap;">
+                            <div style="flex:0 0 130px">
+                                <label>Số bản</label>
+                                <input type="number" min="1" value="${it.copies}" data-field="copies" data-id="${it.id}" style="width:100%;margin-top:6px">
+                            </div>
+                            <div style="flex:1; min-width:160px">
+                                <label>Paper size</label>
+                                <select data-field="size" data-id="${it.id}" style="margin-top:6px; width:100%">
+                                    <option value="10x15" ${it.size === '10x15' ? 'selected' : ''}>10 x 15 cm</option>
+                                    <option value="13x18" ${it.size === '13x18' ? 'selected' : ''}>13 x 18 cm</option>
+                                    <option value="15x20" ${it.size === '15x20' ? 'selected' : ''}>15 x 20 cm</option>
+                                </select>
+                            </div>
+                            <div style="flex:1; min-width:180px">
+                                <label>Type of paper</label>
+                                <select data-field="paper" data-id="${it.id}" style="margin-top:6px; width:100%">
+                                    <option value="Glossy" ${it.paper === 'Glossy' ? 'selected' : ''}>Glossy</option>
+                                    <option value="Matte" ${it.paper === 'Matte' ? 'selected' : ''}>Matte (+2.000đ)</option>
+                                    <option value="Premium" ${it.paper === 'Premium' ? 'selected' : ''}>Premium (+4.000đ)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin-top:10px; display:flex; align-items:center; gap:12px">
+                            <label><input type="checkbox" data-field="borderless" data-id="${it.id}" ${it.borderless ? 'checked' : ''}> Borderless (+10%)</label>
+                            <div style="flex:1"></div>
+                            <div style="font-weight:700">${fmt(it.price)}</div>
+                        </div>
+                        <div class="footer-note">The photo will be printed in full size, without any white borders around it.</div>
+                    </div>
+                `;
                 configList.appendChild(card);
             });
 
-            // attach event listeners (delegation)
-            // remove
+            // Gắn sự kiện
             configList.querySelectorAll('.remove-x').forEach(el => {
                 el.onclick = (ev) => {
                     const id = el.getAttribute('data-id');
                     removeItem(id);
                 };
             });
-            // expand
+
             configList.querySelectorAll('.expand-arrow').forEach(el => {
                 el.onclick = () => {
                     const id = el.getAttribute('data-id');
                     toggleDetails(id);
                 };
             });
-            // inputs change
+
             configList.querySelectorAll('input[type="number"]').forEach(inp => {
                 inp.oninput = (ev) => {
                     const id = inp.getAttribute('data-id');
@@ -649,6 +683,7 @@
                     }
                 };
             });
+
             configList.querySelectorAll('select[data-field="size"]').forEach(sel => {
                 sel.onchange = () => {
                     const id = sel.getAttribute('data-id');
@@ -660,20 +695,18 @@
                     }
                 };
             });
-            // paper radio
-            configList.querySelectorAll('input[type="radio"]').forEach(r => {
-                r.onchange = () => {
-                    const name = r.name; // paper-<id>
-                    if (!name.startsWith('paper-')) return;
-                    const id = name.split('-')[1];
+
+            configList.querySelectorAll('select[data-field="paper"]').forEach(sel => {
+                sel.onchange = () => {
+                    const id = sel.getAttribute('data-id');
                     const idx = items.findIndex(x => x.id === id);
                     if (idx > -1) {
-                        items[idx].paper = r.value;
+                        items[idx].paper = sel.value;
                         updateItem(idx);
                     }
                 };
             });
-            // borderless checkboxes
+
             configList.querySelectorAll('input[type="checkbox"][data-field="borderless"]').forEach(cb => {
                 cb.onchange = () => {
                     const id = cb.getAttribute('data-id');
@@ -685,50 +718,35 @@
                 };
             });
 
-            // update order summary
             renderOrderSummary();
         }
 
-        // toggle details open/close
         function toggleDetails(id) {
             const det = document.getElementById('details-' + id);
             const card = document.getElementById('card-' + id);
             if (!det) return;
             const isVisible = det.style.display === 'block';
             det.style.display = isVisible ? 'none' : 'block';
-            // rotate arrow - use text symbol flip
             const arr = card.querySelector('.expand-arrow');
             arr.textContent = isVisible ? '▾' : '▴';
         }
 
-        // remove item
         function removeItem(id) {
             items = items.filter(x => x.id !== id);
             renderAll();
         }
 
-        // update single item after change
         function updateItem(idx) {
             items[idx].price = calcPrice(items[idx]);
             renderAll();
         }
 
-        // calculate price helper
-        function calcPrice(it) {
-            const base = basePrice[it.size] || basePrice['10x15'];
-            const extra = paperExtra[it.paper] || 0;
-            let p = (base + extra) * it.copies;
-            if (it.borderless) p = Math.round(p * (1 + BORDERLESS_MULT));
-            return p;
-        }
-
-        // render order summary (right)
         function renderOrderSummary() {
             orderList.innerHTML = '';
             let total = 0;
             if (items.length === 0) {
-                orderList.innerHTML = `<p style="color:var(--muted); text-align:center">No files uploaded yet</p>`;
-                orderCount.textContent = '0 photos';
+                orderList.innerHTML = `<p style="color:var(--muted); text-align:center">Chưa tải lên file nào</p>`;
+                orderCount.textContent = '0 ảnh';
                 orderTotal.textContent = '0₫';
                 payBtn.disabled = true;
                 return;
@@ -740,34 +758,68 @@
                 const row = document.createElement('div');
                 row.className = 'order-item';
                 row.innerHTML = `
-      <img class="thumb" src="${it.preview}" alt="">
-      <div class="o-meta">
-        <div style="font-weight:600">${shortName(it.name,28)}</div>
-        <div style="font-size:12px;color:var(--muted); margin-top:6px">${it.sizeLabel} • ${it.copies} copy${it.copies>1?'s':''}<br>${it.paper}${it.borderless? ' • Borderless':''}</div>
-      </div>
-      <div class="o-price">${fmt(it.price)}</div>
-    `;
+                    <img class="thumb" src="${it.preview}" alt="">
+                    <div class="o-meta">
+                        <div style="font-weight:600">${shortName(it.name, 28)}</div>
+                        <div style="font-size:12px;color:var(--muted); margin-top:6px">${it.sizeLabel} • ${it.copies} bản${it.copies > 1 ? '' : ''}<br>${it.paper}${it.borderless ? ' • Không viền' : ''}</div>
+                    </div>
+                    <div class="o-price">${fmt(it.price)}</div>
+                `;
                 orderList.appendChild(row);
             });
 
-            orderCount.textContent = `${items.length} photos`;
+            orderCount.textContent = `${items.length} ảnh`;
             orderTotal.textContent = fmt(total);
             payBtn.disabled = false;
-            // scroll behaviour if many items
             orderList.style.maxHeight = items.length > 4 ? '360px' : 'auto';
             orderList.style.overflowY = items.length > 4 ? 'auto' : 'visible';
         }
 
-        // helper price constants accessible in calc functions
-
-
-        // pay button demo
         payBtn.addEventListener('click', () => {
-            const total = items.reduce((s, i) => s + calcPrice(i), 0);
-            alert(`Proceed to payment\nTotal: ${fmt(total)}\nFiles: ${items.length}`);
+            // Kiểm tra thông tin khách hàng
+            if (!customerNameInput.value.trim() || !customerEmailInput.value.trim()) {
+                alert('Vui lòng nhập đầy đủ Họ và tên và Email trước khi tiếp tục.');
+                return;
+            }
+
+            // Tạo mã đơn hàng
+            const orderCode = `PHOTO-${Date.now().toString().slice(-6)}`;
+
+            // Chuẩn bị dữ liệu đơn hàng
+            const orderData = {
+                orderCode: orderCode,
+                customer: {
+                    name: customerNameInput.value.trim(),
+                    email: customerEmailInput.value.trim()
+                },
+                files: items.map(item => ({
+                    name: item.name,
+                    pages: item.pages,
+                    copies: item.copies,
+                    size: item.sizeLabel, // Sử dụng sizeLabel để hiển thị "10 x 15 cm" thay vì "10x15"
+                    side: '1 mặt', // Ảnh chỉ in 1 mặt
+                    mode: item.paper, // Dùng paper thay vì mode (Glossy, Matte, Premium)
+                    type: 'Ảnh', // Loại tài liệu là ảnh
+                    colorPages: '', // Không áp dụng cho in ảnh
+                    binding: false, // Không áp dụng cho in ảnh
+                    cover: false, // Không áp dụng cho in ảnh
+                    price: item.price,
+                    borderless: item.borderless
+                })),
+                specialRequest: notesTextarea.value.trim(),
+                summary: {
+                    fileCount: items.length,
+                    totalPrice: items.reduce((sum, item) => sum + item.price, 0)
+                }
+            };
+
+            // Lưu vào sessionStorage
+            sessionStorage.setItem('printOrderData', JSON.stringify(orderData));
+
+            // Chuyển hướng đến trang Order Confirmation
+            window.location.href = '/FE/src/pages/Print/Print_Order_Confirmation.html';
         });
 
-        // cleanup object URLs on unload
         window.addEventListener('unload', () => {
             items.forEach(i => {
                 try {
@@ -779,3 +831,4 @@
 </body>
 
 </html>
+```
